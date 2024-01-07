@@ -4,15 +4,15 @@ import { ModeToggle } from './mode-toggle'
 const navItems = [
   {
     label: 'Survey',
-    href: '/survey',
+    path: '/survey',
   },
   {
     label: 'Vote',
-    href: '/vote',
+    path: '/vote',
   },
   {
     label: 'Results',
-    href: '/results',
+    path: '/results',
   },
 ]
 
@@ -25,10 +25,10 @@ export const TopNav = () => {
           <span>Scythe Matchups</span>
         </Link>
         <div className='flex items-center flex-1 gap-6 text-sm'>
-          {navItems.map(({ label, href }) => (
+          {navItems.map(({ label, path }) => (
             <Link
               className='transition-colors hover:text-foreground/80 text-foreground/60'
-              to={href}
+              to={path}
             >
               {label}
             </Link>
