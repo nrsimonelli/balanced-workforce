@@ -1,3 +1,8 @@
 export const Results = () => {
-  return <div>component placeholder</div>
+  return (
+    <div>
+      <p>results table for survey and for strongest combo</p>
+      <p>placeholder</p>
+    </div>
+  )
 }
