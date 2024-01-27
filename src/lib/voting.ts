@@ -1,4 +1,11 @@
-import { ComboId, FACTION_KEY, MAT_KEY } from './constants'
+import { supabase } from './api'
+import {
+  ComboId,
+  FACTION_KEY,
+  MAT_KEY,
+  isComboType,
+  isKeyOf,
+} from './constants'
 
 const getRandomKey = (previousInt?: number): number => {
   const newInt = Math.floor(Math.random() * 7) + 1
@@ -8,10 +15,6 @@ const getRandomKey = (previousInt?: number): number => {
   }
 
   return getRandomKey(previousInt)
-}
-
-const isComboType = (combination: string): combination is ComboId => {
-  return (combination as ComboId) !== undefined
 }
 
 export const generateCombinationsForVoting = (
@@ -38,21 +41,39 @@ export const generateCombinationsForVoting = (
   }
 }
 
-const isKeyOf = <T extends object>(
-  obj: T,
-  key: string | number | symbol
-): key is keyof T => {
-  return key in obj !== undefined
-}
+type FactionName = (typeof FACTION_KEY)[keyof typeof FACTION_KEY]
+type MatName = (typeof MAT_KEY)[keyof typeof MAT_KEY]
 
-export const getDisplayName = (combination: ComboId): string => {
+export const getDisplayName = (
+  combination: ComboId
+): [FactionName?, MatName?] => {
   const faction = Number(combination[0])
   const mat = Number(combination[1])
 
   const factionName = isKeyOf(FACTION_KEY, faction)
     ? FACTION_KEY[faction]
-    : 'unknown'
-  const matName = isKeyOf(MAT_KEY, mat) ? MAT_KEY[mat] : 'unknown'
+    : undefined
+  const matName = isKeyOf(MAT_KEY, mat) ? MAT_KEY[mat] : undefined
 
-  return `${factionName} ${matName}`
+  return [factionName, matName]
+}
+
+export const submitVotes = async (voteFor: ComboId, voteAgainst: ComboId) => {
+  try {
+    const voteOne = await supabase.rpc('incrementVotesFor', { row_id: voteFor })
+    const voteTwo = await supabase.rpc('incrementVotesAgainst', {
+      row_id: voteAgainst,
+    })
+
+    if (voteOne.error || voteTwo.error) {
+      console.error('Error in voting:', voteOne.error, voteTwo.error)
+      return false
+    }
+
+    console.log('Votes submitted successfully')
+    return true
+  } catch (error) {
+    console.error('Unexpected error:', error)
+    return false
+  }
 }
