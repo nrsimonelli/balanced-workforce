@@ -21,6 +21,16 @@ export const MAT_KEY = {
   7: 'agricultural',
 } as const
 
+export const FACTION_IMAGE = {
+  crimea: 'src/assets/factions/crimea-profile.png',
+  saxony: 'src/assets/factions/saxony-profile.png',
+  polania: 'src/assets/factions/polania-profile.png',
+  albion: 'src/assets/factions/albion-profile.png',
+  nordic: 'src/assets/factions/nordic-profile.png',
+  rusviet: 'src/assets/factions/rusviet-profile.png',
+  togawa: 'src/assets/factions/togawa-profile.png',
+} as const
+
 export type ComboId = `${keyof typeof FACTION_KEY}${keyof typeof MAT_KEY}`
 
 export const isKeyOf = <T extends object>(
@@ -33,40 +43,40 @@ export const isComboType = (combination: string): combination is ComboId => {
   return (combination as ComboId) !== undefined
 }
 
-export const MAT_DETAILS = {
+export const MAT_DETAIL = {
   1: {
     name: 'industrial',
-    details:
+    detail:
       'produce to deploy, move to build, trade to enlist, bolster to upgrade,.',
   },
   2: {
     name: 'engineering',
-    details:
+    detail:
       'produce to upgrade, move to enlist, trade to deploy, bolster to build.',
   },
   3: {
     name: 'militant',
-    details:
+    detail:
       'produce to build, move to deploy, trade to enlist, bolster to upgrade.',
   },
   4: {
     name: 'patriotic',
-    details:
+    detail:
       'produce to enlist, move to upgrade, trade to build, bolster to deploy.',
   },
   5: {
     name: 'innovative',
-    details:
+    detail:
       'produce to deploy, move to enlist, trade to upgrade, bolster to build.',
   },
   6: {
     name: 'mechanical',
-    details:
+    detail:
       'produce to enlist, move to build, trade to upgrade, bolster to deploy.',
   },
   7: {
     name: 'agricultural',
-    details:
+    detail:
       'produce to build, move to upgrade, trade to deploy, bolster to enlist.',
   },
 }

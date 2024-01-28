@@ -10,7 +10,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { ComboId } from '@/lib/constants'
 import {
   generateCombinationsForVoting,
-  getDisplayName,
+  getComboInformation,
   submitVotes,
 } from '@/lib/voting'
 import { useState } from 'react'
@@ -71,41 +71,42 @@ export const Vote = () => {
             </p>
           </div>
           <div className='flex flex-row space-x-6'>
-            <Card className='overflow-hidden min-w-60'>
-              <CardHeader className='h-40 bg-gradient-to-r from-primary to-accent'></CardHeader>
-              <CardContent>
-                <CardTitle className='mt-4 text-xl capitalize'>
-                  {getDisplayName(firstCombo).join(' ')}
-                </CardTitle>
-              </CardContent>
-              <CardFooter>
-                <Button
-                  className='capitalize'
-                  onClick={() => handleVote(firstCombo, secondCombo)}
-                  disabled={loadingVotes}
+            {[firstCombo, secondCombo].map((combo, index) => {
+              const otherCombo = index === 0 ? secondCombo : firstCombo
+              const { factionName, matName, profileImage } =
+                getComboInformation(combo)
+
+              return (
+                <Card
+                  key={`${factionName}-${matName}`}
+                  className='overflow-hidden min-w-60'
                 >
-                  {`Vote ${getDisplayName(firstCombo)[0]}`}
-                </Button>
-              </CardFooter>
-            </Card>
-            <Card className='overflow-hidden min-w-60'>
-              <CardHeader className='h-40 bg-gradient-to-r from-primary to-accent'></CardHeader>
-              <CardContent>
-                <CardTitle className='mt-4 text-xl capitalize'>
-                  {getDisplayName(secondCombo).join(' ')}
-                </CardTitle>
-                {/* <CardDescription>description</CardDescription> */}
-              </CardContent>
-              <CardFooter>
-                <Button
-                  className='capitalize'
-                  onClick={() => handleVote(secondCombo, firstCombo)}
-                  disabled={loadingVotes}
-                >
-                  {`Vote ${getDisplayName(secondCombo)[0]}`}
-                </Button>
-              </CardFooter>
-            </Card>
+                  <CardHeader
+                    className={`max-w-[300px] p-0 overflow-hidden bg-gradient-to-r from-primary to-accent`}
+                  >
+                    <img
+                      src={profileImage}
+                      alt={factionName}
+                      className='h-auto max-w-full'
+                    />
+                  </CardHeader>
+                  <CardContent>
+                    <CardTitle className='mt-4 text-xl capitalize'>
+                      {factionName} {matName}
+                    </CardTitle>
+                  </CardContent>
+                  <CardFooter>
+                    <Button
+                      className='capitalize'
+                      onClick={() => handleVote(combo, otherCombo)}
+                      disabled={loadingVotes}
+                    >
+                      {`Vote ${factionName}`}
+                    </Button>
+                  </CardFooter>
+                </Card>
+              )
+            })}
           </div>
           <div className='inline-flex items-center pt-6 space-x-2 text-sm text-muted-foreground'>
             <p>Not sure about this matchup?</p>

@@ -1,6 +1,7 @@
 import { supabase } from './api'
 import {
   ComboId,
+  FACTION_IMAGE,
   FACTION_KEY,
   MAT_KEY,
   isComboType,
@@ -44,9 +45,12 @@ export const generateCombinationsForVoting = (
 type FactionName = (typeof FACTION_KEY)[keyof typeof FACTION_KEY]
 type MatName = (typeof MAT_KEY)[keyof typeof MAT_KEY]
 
-export const getDisplayName = (
-  combination: ComboId
-): [FactionName?, MatName?] => {
+interface ComboInformation {
+  factionName?: FactionName
+  matName?: MatName
+  profileImage: string
+}
+export const getComboInformation = (combination: ComboId): ComboInformation => {
   const faction = Number(combination[0])
   const mat = Number(combination[1])
 
@@ -54,8 +58,9 @@ export const getDisplayName = (
     ? FACTION_KEY[faction]
     : undefined
   const matName = isKeyOf(MAT_KEY, mat) ? MAT_KEY[mat] : undefined
+  const profileImage = factionName ? FACTION_IMAGE[factionName] : ''
 
-  return [factionName, matName]
+  return { factionName, matName, profileImage }
 }
 
 export const submitVotes = async (voteFor: ComboId, voteAgainst: ComboId) => {
