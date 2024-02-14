@@ -22,13 +22,13 @@ export const MAT_KEY = {
 } as const
 
 export const FACTION_IMAGE = {
-  crimea: 'src/assets/factions/crimea-profile.png',
-  saxony: 'src/assets/factions/saxony-profile.png',
-  polania: 'src/assets/factions/polania-profile.png',
-  albion: 'src/assets/factions/albion-profile.png',
-  nordic: 'src/assets/factions/nordic-profile.png',
-  rusviet: 'src/assets/factions/rusviet-profile.png',
-  togawa: 'src/assets/factions/togawa-profile.png',
+  crimea: 'images/crimea-profile.png',
+  saxony: 'images/saxony-profile.png',
+  polania: 'images/polania-profile.png',
+  albion: 'images/albion-profile.png',
+  nordic: 'images/nordic-profile.png',
+  rusviet: 'images/rusviet-profile.png',
+  togawa: 'images/togawa-profile.png',
 } as const
 
 export type ComboId = `${keyof typeof FACTION_KEY}${keyof typeof MAT_KEY}`
