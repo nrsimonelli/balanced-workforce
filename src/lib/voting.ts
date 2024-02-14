@@ -65,9 +65,11 @@ export const getComboInformation = (combination: ComboId): ComboInformation => {
 
 export const submitVotes = async (voteFor: ComboId, voteAgainst: ComboId) => {
   try {
-    const voteOne = await supabase.rpc('incrementVotesFor', { row_id: voteFor })
+    const voteOne = await supabase.rpc('incrementVotesFor', {
+      row_id: Number(voteFor),
+    })
     const voteTwo = await supabase.rpc('incrementVotesAgainst', {
-      row_id: voteAgainst,
+      row_id: Number(voteAgainst),
     })
 
     if (voteOne.error || voteTwo.error) {

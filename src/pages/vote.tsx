@@ -1,11 +1,5 @@
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useToast } from '@/components/ui/use-toast'
 import { ComboId } from '@/lib/constants'
 import {
@@ -13,7 +7,7 @@ import {
   getComboInformation,
   submitVotes,
 } from '@/lib/voting'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const Vote = () => {
   const { toast } = useToast()
@@ -46,76 +40,60 @@ export const Vote = () => {
     setLoadingVotes(false)
   }
 
+  useEffect(() => {
+    handleRandomize()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className='flex flex-col items-center flex-1 space-y-8'>
+      <div className='space-y-2'>
+        <h2>Which combination has the best chance to win?</h2>
+        <p className='font-light'>
+          Click one of the cards below in order to vote
+        </p>
+      </div>
       {!firstCombo || !secondCombo ? (
-        <>
-          <div className='space-y-2'>
-            <p className='text-xl font-semibold'>
-              Select the best combination from two random options
-            </p>
-            <p>
-              There is no limit on the amount of times you can vote. Play as
-              many times as you like.
-            </p>
-          </div>
-          <div className='flex items-center justify-center'>
-            <Button onClick={handleRandomize}>Begin voting</Button>
-          </div>
-        </>
+        <div>loading spinner?</div>
       ) : (
-        <>
-          <div className='pt-8'>
-            <p className='text-xl font-semibold'>
-              Which combination has the best chance to win?
-            </p>
-          </div>
-          <div className='flex flex-row space-x-6'>
-            {[firstCombo, secondCombo].map((combo, index) => {
-              const otherCombo = index === 0 ? secondCombo : firstCombo
-              const { factionName, matName, profileImage } =
-                getComboInformation(combo)
+        <div className='flex flex-row space-x-6'>
+          {[firstCombo, secondCombo].map((combo, index) => {
+            const otherCombo = index === 0 ? secondCombo : firstCombo
+            const { factionName, matName, profileImage } =
+              getComboInformation(combo)
 
-              return (
-                <Card
-                  key={`${factionName}-${matName}`}
-                  className='overflow-hidden min-w-60'
+            return (
+              <Card
+                key={`${factionName}-${matName}`}
+                className='overflow-hidden transition-shadow duration-300 min-w-16 hover:ring-2 hover:ring-primary hover:shadow-lg aria-disabled:pointer-events-none'
+                aria-disabled={loadingVotes}
+                onClick={() => handleVote(combo, otherCombo)}
+              >
+                <CardHeader
+                  className={`max-w-[300px] p-0 overflow-hidden bg-gradient-to-r from-primary to-secondary aspect-square h-auto w-full`}
                 >
-                  <CardHeader
-                    className={`max-w-[300px] p-0 overflow-hidden bg-gradient-to-r from-primary to-accent`}
-                  >
-                    <img
-                      src={profileImage}
-                      alt={factionName}
-                      className='h-auto max-w-full'
-                    />
-                  </CardHeader>
-                  <CardContent>
-                    <CardTitle className='mt-4 text-xl capitalize'>
-                      {factionName} {matName}
-                    </CardTitle>
-                  </CardContent>
-                  <CardFooter>
-                    <Button
-                      className='capitalize'
-                      onClick={() => handleVote(combo, otherCombo)}
-                      disabled={loadingVotes}
-                    >
-                      {`Vote ${factionName}`}
-                    </Button>
-                  </CardFooter>
-                </Card>
-              )
-            })}
-          </div>
-          <div className='inline-flex items-center pt-6 space-x-2 text-sm text-muted-foreground'>
-            <p>Not sure about this matchup?</p>
-            <Button variant={'link'} onClick={handleRandomize} className='p-0'>
-              Click here to skip
-            </Button>
-          </div>
-        </>
+                  <img
+                    src={profileImage}
+                    alt={factionName}
+                    className='h-auto max-w-full'
+                  />
+                </CardHeader>
+                <CardContent className='mt-4'>
+                  <CardTitle className='text-xl capitalize'>
+                    {factionName} {matName}
+                  </CardTitle>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
       )}
+      <div className='inline-flex items-center space-x-2 text-sm text-muted-foreground'>
+        <p>Not sure about this matchup?</p>
+        <Button variant={'link'} onClick={handleRandomize} className='p-0'>
+          Click here to skip
+        </Button>
+      </div>
     </div>
   )
 }
