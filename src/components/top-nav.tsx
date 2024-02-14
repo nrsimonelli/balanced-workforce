@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 import { ModeToggle } from './mode-toggle'
 
 const navItems = [
-  {
-    label: 'Survey',
-    path: '/survey',
-  },
+  // {
+  //   label: 'Survey',
+  //   path: '/survey',
+  // },
   {
     label: 'Vote',
     path: '/vote',
@@ -27,7 +27,7 @@ export const TopNav = () => {
         <div className='flex items-center flex-1 gap-6 text-sm'>
           {navItems.map(({ label, path }) => (
             <Link
-              className='transition-colors hover:text-foreground/80 text-foreground/60'
+              className='transition-colors hover:text-foreground/80 text-foreground/60 aria-disabled:pointer-events-none'
               to={path}
             >
               {label}
