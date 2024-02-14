@@ -7,6 +7,7 @@ import {
   getComboInformation,
   submitVotes,
 } from '@/lib/voting'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import { useEffect, useState } from 'react'
 
 export const Vote = () => {
@@ -54,7 +55,9 @@ export const Vote = () => {
         </p>
       </div>
       {!firstCombo || !secondCombo ? (
-        <div>loading spinner?</div>
+        <div>
+          <ReloadIcon className='w-4 h-4 my-20 animate-spin' />
+        </div>
       ) : (
         <div className='flex flex-row space-x-6'>
           {[firstCombo, secondCombo].map((combo, index) => {
@@ -70,13 +73,17 @@ export const Vote = () => {
                 onClick={() => handleVote(combo, otherCombo)}
               >
                 <CardHeader
-                  className={`max-w-[300px] p-0 overflow-hidden bg-gradient-to-r from-primary to-secondary aspect-square h-auto w-full`}
+                  className={`max-w-[300px] p-0 overflow-hidden aspect-square h-auto w-full`}
                 >
-                  <img
-                    src={profileImage}
-                    alt={factionName}
-                    className='h-auto max-w-full'
-                  />
+                  {!profileImage ? (
+                    <div className='min-w-40 sm:min-w-[300px] w-full aspect-square animate-pulse bg-muted' />
+                  ) : (
+                    <img
+                      src={profileImage}
+                      alt={factionName}
+                      className='h-auto max-w-full'
+                    />
+                  )}
                 </CardHeader>
                 <CardContent className='mt-4'>
                   <CardTitle className='text-xl capitalize'>
