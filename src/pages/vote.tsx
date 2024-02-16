@@ -7,7 +7,6 @@ import {
   getComboInformation,
   submitVotes,
 } from '@/lib/voting'
-import { ReloadIcon } from '@radix-ui/react-icons'
 import { useEffect, useState } from 'react'
 
 export const Vote = () => {
@@ -55,8 +54,8 @@ export const Vote = () => {
         </p>
       </div>
       {!firstCombo || !secondCombo ? (
-        <div>
-          <ReloadIcon className='w-4 h-4 my-20 animate-spin' />
+        <div className='py-24'>
+          <h2>Generating matchups...</h2>
         </div>
       ) : (
         <div className='flex flex-row space-x-6'>
