@@ -77,7 +77,6 @@ export const submitVotes = async (voteFor: ComboId, voteAgainst: ComboId) => {
       return false
     }
 
-    console.log('Votes submitted successfully')
     return true
   } catch (error) {
     console.error('Unexpected error:', error)

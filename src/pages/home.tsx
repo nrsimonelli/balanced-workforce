@@ -58,6 +58,7 @@ export const Home = () => {
         <div className='inline-flex justify-end w-[300px] overflow-hidden'>
           {featureText.map((text, index) => (
             <h1
+              key={text + index}
               className={cn(
                 'min-w-[300px] leading-normal animate-cycle-words',
                 featureColor[index % featureColor.length]

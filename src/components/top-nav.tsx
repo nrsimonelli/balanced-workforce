@@ -28,6 +28,7 @@ export const TopNav = () => {
         <div className='flex items-center justify-center flex-1 gap-6 text-sm sm:justify-start'>
           {navItems.map(({ label, path }) => (
             <Link
+              key={label}
               className='transition-colors hover:text-foreground/80 text-foreground/60 aria-disabled:pointer-events-none'
               to={path}
             >
