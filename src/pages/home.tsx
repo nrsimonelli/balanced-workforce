@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import { Spotlight } from '@/components/ui/spotlight'
 import { cn } from '@/lib/utils'
 import { Link } from 'react-router-dom'
 
@@ -52,7 +53,8 @@ export const Home = () => {
   const featureColor = [...displayColor.sort(() => Math.random() - 0.5)]
 
   return (
-    <div className='flex flex-col items-start justify-start max-w-[600px] mx-auto flex-1 space-y-16'>
+    <div className='flex flex-col items-start justify-center max-w-[600px] mx-auto flex-1 space-y-16'>
+      <Spotlight className='left-0 -top-40 md:left-60 md:-top-20' />
       <div className='flex flex-wrap'>
         <h1 className='mr-2 leading-normal'>Scythe is... </h1>
         <div className='inline-flex justify-end w-[300px] overflow-hidden'>
@@ -69,15 +71,11 @@ export const Home = () => {
           ))}
         </div>
       </div>
-
-      <div className='space-y-4'>
-        <h2 className='font-normal'>But it's far from balanced</h2>
-        <h2 className='font-normal'>{'And thats okay :)'}</h2>
-      </div>
       <div className='space-y-8'>
-        <p>
-          Check out the results page to see what we've learned or submit a few
-          votes and help us go even further
+        <p className='text-xl'>
+          It's not the most balanced game and thats ok :) Check out the results
+          page to see what we've learned and submit new votes to help us go even
+          further.
         </p>
 
         <div className='flex justify-center space-x-2'>

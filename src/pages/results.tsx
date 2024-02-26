@@ -21,7 +21,7 @@ export const Results = () => {
 
   const hasMinimumVotes = (data: Tables<'voting-table'>[]) => {
     return !data.some(({ votes_for, votes_against }) => {
-      return votes_for + votes_against < 100
+      return votes_for + votes_against < 50
     })
   }
 
