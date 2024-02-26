@@ -43,9 +43,6 @@ const displayColor = [
 ]
 
 export const Home = () => {
-  // first and last item need to be the same
-  // shuffle the array, then make the last item the same as the first
-
   const featureText = [
     ...displayText.sort(() => Math.random() - 0.5),
     displayText[0],
@@ -54,7 +51,10 @@ export const Home = () => {
 
   return (
     <div className='flex flex-col items-start justify-center max-w-[600px] mx-auto flex-1 space-y-16'>
-      <Spotlight className='left-0 -top-40 md:left-60 md:-top-20' />
+      <Spotlight
+        className='left-0 -top-40 md:left-60 md:-top-20'
+        fill={'white'}
+      />
       <div className='flex flex-wrap'>
         <h1 className='mr-2 leading-normal'>Scythe is... </h1>
         <div className='inline-flex justify-end w-[300px] overflow-hidden'>
@@ -73,7 +73,7 @@ export const Home = () => {
       </div>
       <div className='space-y-8'>
         <p className='text-xl'>
-          It's not the most balanced game and thats ok :) Check out the results
+          It's not the most balanced game and thats ok. Check out the results
           page to see what we've learned and submit new votes to help us go even
           further.
         </p>
