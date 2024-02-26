@@ -12,25 +12,25 @@ export type Database = {
       "voting-table": {
         Row: {
           combo_id: number | null
-          faction: string | null
+          faction: string
           id: number
-          mat: string | null
+          mat: string
           votes_against: number
           votes_for: number
         }
         Insert: {
           combo_id?: number | null
-          faction?: string | null
+          faction: string
           id?: number
-          mat?: string | null
+          mat: string
           votes_against: number
           votes_for: number
         }
         Update: {
           combo_id?: number | null
-          faction?: string | null
+          faction?: string
           id?: number
-          mat?: string | null
+          mat?: string
           votes_against?: number
           votes_for?: number
         }

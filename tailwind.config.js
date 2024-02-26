@@ -1,5 +1,7 @@
+import tailwindAnimate from 'tailwindcss-animate'
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -66,6 +68,16 @@ module.exports = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        spotlight: {
+          '0%': {
+            opacity: 0,
+            transform: 'translate(-72%, -62%) scale(0.5)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translate(-50%,-40%) scale(1)',
+          },
+        },
         'cycle-words': {
           // cycle through horizontal list of 20 items
           '0%': { transform: 'translateX(0)' },
@@ -114,9 +126,10 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        spotlight: 'spotlight 2s ease .75s 1 forwards',
         'cycle-words': 'cycle-words 40s ease-out infinite',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [tailwindAnimate],
 }
