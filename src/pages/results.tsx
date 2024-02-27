@@ -2,7 +2,6 @@ import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -25,6 +24,16 @@ export const Results = () => {
     })
   }
 
+  const getFactionIcon = (faction: string) => {
+    return (
+      <img
+        src={`images/icons/${faction}.png`}
+        alt={faction}
+        className='w-4 h-4 mr-1'
+      />
+    )
+  }
+
   return (
     <div className='container space-y-4'>
       <h2>Results</h2>
@@ -41,7 +50,7 @@ export const Results = () => {
         </Card>
       ) : hasMinimumVotes(tableData) ? (
         <Table>
-          <TableCaption>caption</TableCaption>
+          {/* <TableCaption>caption</TableCaption> */}
           <TableHeader>
             <TableRow>
               <TableHead>Rank</TableHead>
@@ -59,8 +68,8 @@ export const Results = () => {
                 return (
                   <TableRow key={combo_id}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell className='capitalize'>
-                      {faction} {mat}
+                    <TableCell className='inline-flex items-center capitalize'>
+                      {getFactionIcon(faction)} {mat}
                     </TableCell>
                     <TableCell>{formatWinRate(winRate)}</TableCell>
                     <TableCell>{totalVotes}</TableCell>
